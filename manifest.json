@@ -10,7 +10,8 @@
 	"permissions": [
 		"storage",
 		"contextMenus",
-		"activeTab"
+		"activeTab",
+		"scripting"
 	],
 	"icons": {
 		"256": "icon.png"
@@ -27,12 +28,6 @@
 	"background": {
 		"service_worker": "background.js"
 	},
-	"content_scripts": [
-		{
-			"matches": ["<all_urls>"],
-			"js": ["content.js"]
-		}
-	],
 	"browser_specific_settings": {
 		"gecko": {
 			"id": "@rsi-assist.ludo",

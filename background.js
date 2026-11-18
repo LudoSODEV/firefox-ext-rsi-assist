@@ -153,14 +153,28 @@ chrome.contextMenus.onClicked.addListener
 						function (result)
 						{
 							const snippets = result[hostname] || [];
-							if (snippets[index] !== undefined)
+							if (snippets[index] !== undefined && tab.id)
 							{
-								chrome.tabs.sendMessage
+								chrome.scripting.executeScript
 								(
-									tab.id,
 									{
-										action: 'insertText',
-										text: snippets[index]
+										target: { tabId: tab.id },
+										files: ['content.js']
+									},
+									function ()
+									{
+										if (chrome.runtime.lastError)
+										{
+											console.log('Script injection note:', chrome.runtime.lastError.message);
+										}
+										chrome.tabs.sendMessage
+										(
+											tab.id,
+											{
+												action: 'insertText',
+												text: snippets[index]
+											}
+										);
 									}
 								);
 							}

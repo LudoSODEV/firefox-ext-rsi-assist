@@ -44,7 +44,28 @@ document.addEventListener
 					currentHostname = url.hostname;
 					hostnameElement.textContent = currentHostname;
 
-					loadSnippets();
+					if (tab.id)
+					{
+						chrome.scripting.executeScript
+						(
+							{
+								target: { tabId: tab.id },
+								files: ['content.js']
+							},
+							function ()
+							{
+								if (chrome.runtime.lastError)
+								{
+									console.log('Script injection note:', chrome.runtime.lastError.message);
+								}
+								loadSnippets();
+							}
+						);
+					}
+					else
+					{
+						loadSnippets();
+					}
 				}
 				catch (error)
 				{

@@ -4,6 +4,12 @@
 (
 	function ()
 	{
+		if (window.__rsiAssistInitialized)
+		{
+			return;
+		}
+		window.__rsiAssistInitialized = true;
+
 		const HOST_ID = 'rsi-assist-floating-host';
 
 		function simulateTabKey(element)
